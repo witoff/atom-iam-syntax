@@ -1,0 +1,44 @@
+'.policy.json':
+
+  'Id':
+    'prefix': 'Id'
+    'body': '"Id" : "StatementId"'
+
+  'Version':
+    'prefix': 'Version'
+    'body': '"Version" : "2012-10-17"'
+
+  'Statement':
+    'prefix': 'Statement'
+    'body': """
+      "Statement" : [
+        {
+          "Effect": "Allow",
+          "Action": [
+            "${1:ec2:...}"
+          ],
+          "Resource": "${2:arn:...}",
+          "Condition": {$3}
+        }
+      ]
+    """
+
+  'IP Condition':
+    'prefix': 'IpAddress'
+    'body': """
+      "IpAddress": {
+        "aws:SourceIp": [
+          "${1:1.2.3.4/25}"
+        ]
+      }
+    """
+
+  'IP Condition If Exists':
+    'prefix': 'IpAddressIfExists'
+    'body': """
+      "IpAddressIfExists": {
+        "aws:SourceIp": [
+          "${1:1.2.3.4/25}"
+        ]
+      }
+    """

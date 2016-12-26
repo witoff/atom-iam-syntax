@@ -1,0 +1,18 @@
+{
+  "name": "iam-syntax",
+  "author": "Rob Witoff <twitter.com/rwitoff>",
+  "version": "0.0.1",
+  "description": "Syntax Highlighting for IAM Policies",
+  "repository": "https://github.com/witoff/atom-iam-syntax",
+  "keywords": [
+    "aws",
+    "iam",
+    "policy",
+    "grammar",
+    "syntax"
+  ],
+  "license": "TBD",
+  "engines": {
+    "atom": ">=1.0.0 <2.0.0"
+  }
+}

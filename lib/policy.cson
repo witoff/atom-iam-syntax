@@ -1,0 +1,619 @@
+'scopeName': 'policy.json'
+'fileTypes': [
+  'policy'
+  'policy.json'
+  'iam'
+  'iam.json'
+]
+'name': 'policy'
+'patterns': [
+  { 'include': '#policy' }
+]
+'repository':
+  'policy':
+    'begin': '\\{'
+    'beginCaptures':
+      '0':
+        'name': 'punctuation.definition.dictionary.begin.json'
+    'end': '\\}'
+    'endCaptures':
+      '0':
+        'name': 'punctuation.definition.dictionary.end.json'
+    'name': 'meta.structure.dictionary.json'
+    'patterns': [
+      { 'include': '#id_block' }
+      { 'include': '#version_block' }
+      { 'include': '#statement_block' }
+      {
+        'match': '[^\\s\\n]'
+        'name': 'invalid.illegal.unrecognized-string-escape.json'
+      }
+    ]
+  'id_block':
+    'begin': '(?i:"id")'
+    'beginCaptures':
+      '0':
+        'name': 'punctuation.definition.string.begin.json'
+    'end': '(,)|(?=\\})'
+    'endCaptures':
+      '0':
+        'name': 'punctuation.definition.string.end.json'
+    'name': 'string.quoted.double.json'
+    'patterns': [
+      {
+        'begin': ':'
+        'beginCaptures':
+          '0':
+            'name': 'punctuation.separator.dictionary.key-value.json'
+        'end': '(?=,)|(?=\\})'
+        'endCaptures':
+          '0':
+            'name': 'invalid.illegal.trailing-dictionary-separator.json'
+        'name': 'string.quoted.double.json'
+        'patterns': [
+          {
+            'match': '"[a-zA-Z0-9\\-_]*"'
+            'name': 'entity.other.attribute-name'
+          }
+          {
+            'match': '[^\\s\\n]'
+            'name': 'invalid.illegal.unrecognized-string-escape.json'
+          }
+        ]
+      }
+    ]
+  'version_block':
+    'begin': '(?i:"version")'
+    'beginCaptures':
+      '0':
+        'name': 'punctuation.definition.string.begin.json'
+    'end': '(,)|(?=\\})'
+    'endCaptures':
+      '0':
+        'name': 'punctuation.definition.string.end.json'
+    'name': 'string.quoted.double.json'
+    'patterns': [
+      {
+        'begin': ':'
+        'beginCaptures':
+          '0':
+            'name': 'punctuation.separator.dictionary.key-value.json'
+        'end': '(?=,)|(?=\\})'
+        'endCaptures':
+          '0':
+            'name': 'invalid.illegal.trailing-dictionary-separator.json'
+        'name': 'string.quoted.double.json'
+        'patterns': [
+          {
+            'match': '("2008-10-17"|"2012-10-17")'
+            'name': 'entity.other.attribute-name'
+          }
+          {
+            'match': '[^\\s\\n]'
+            'name': 'invalid.illegal.unrecognized-string-escape.json'
+          }
+        ]
+      }
+    ]
+  'statement_block':
+    'begin': '(?i:"statement")'
+    'beginCaptures':
+      '0':
+        'name': 'punctuation.definition.string.begin.json'
+    'end': '(,)|(?=\\})'
+    'endCaptures':
+      '0':
+        'name': 'punctuation.definition.string.end.json'
+    'name': 'string.quoted.double.json'
+    'patterns': [
+      {
+        'begin': ':'
+        'beginCaptures':
+          '0':
+            'name': 'punctuation.separator.dictionary.key-value.json'
+        'end': '(?=,)|(?=\\})'
+        'endCaptures':
+          '0':
+            'name': 'invalid.illegal.trailing-dictionary-separator.json'
+        'name': 'string.quoted.double.json'
+        'patterns': [
+          { 'include': '#statement_array' }
+        ]
+      }
+    ]
+  'statement_array':
+    'begin': '\\['
+    'beginCaptures':
+      '0':
+        'name': 'punctuation.definition.array.begin.json'
+    'end': '(,?)[\\s\\n]*(\\])'
+    'endCaptures':
+      '1':
+        'name': 'invalid.illegal.trailing-array-separator.json'
+      '2':
+        'name': 'punctuation.definition.array.end.json'
+    'name': 'meta.structure.array.json'
+    'patterns': [
+      { 'include': '#statement' }
+      {
+        'match': ','
+        'name': 'punctuation.separator.array.json'
+      }
+      { 'include': '#error' }
+    ]
+  'statement':
+    'begin': '\\{'
+    'beginCaptures':
+      '0':
+        'name': 'punctuation.definition.dictionary.begin.json'
+    'end': '\\}'
+    'endCaptures':
+      '0':
+        'name': 'punctuation.definition.dictionary.end.json'
+    'name': 'meta.structure.dictionary.json'
+    'patterns': [
+      { 'include': '#sid_block' }
+      { 'include': '#effect_block' }
+      { 'include': '#principal_block' }
+      { 'include': '#action_block' }
+      { 'include': '#resource_block' }
+      { 'include': '#condition_block' }
+      {
+        'match': '[^\\s\\n]'
+        'name': 'invalid.illegal.unrecognized-string-escape.json'
+      }
+    ]
+  'sid_block':
+    'begin': '(?i:"sid")'
+    'beginCaptures':
+      '0':
+        'name': 'punctuation.definition.string.begin.json'
+    'end': '(,)|(?=\\})'
+    'endCaptures':
+      '0':
+        'name': 'punctuation.definition.string.end.json'
+    'name': 'string.quoted.double.json'
+    'patterns': [
+      {
+        'begin': ':'
+        'beginCaptures':
+          '0':
+            'name': 'punctuation.separator.dictionary.key-value.json'
+        'end': '(?=,)|(?=\\})'
+        'endCaptures':
+          '0':
+            'name': 'invalid.illegal.trailing-dictionary-separator.json'
+        'name': 'string.quoted.double.json'
+        'patterns': [
+          {
+            'match': '"[a-zA-Z0-9]*"'
+            'name': 'entity.other.attribute-name'
+          }
+          {
+            'match': '[^\\s\\n]'
+            'name': 'invalid.illegal.unrecognized-string-escape.json'
+          }
+        ]
+      }
+    ]
+  'effect_block':
+    'begin': '(?i:"effect")'
+    'beginCaptures':
+      '0':
+        'name': 'punctuation.definition.string.begin.json'
+    'end': '(,)|(?=\\})'
+    'endCaptures':
+      '0':
+        'name': 'punctuation.definition.string.end.json'
+    'name': 'string.quoted.double.json'
+    'patterns': [
+      {
+        'begin': ':'
+        'beginCaptures':
+          '0':
+            'name': 'punctuation.separator.dictionary.key-value.json'
+        'end': '(?=,)|(?=\\})'
+        'endCaptures':
+          '0':
+            'name': 'invalid.illegal.trailing-dictionary-separator.json'
+        'name': 'string.quoted.double.json'
+        'patterns': [
+          {
+            'match': '(?i:"allow"|"deny")'
+            'name': 'entity.other.attribute-name'
+          }
+          {
+            'match': '[^\\s\\n]'
+            'name': 'invalid.illegal.unrecognized-string-escape.json'
+          }
+        ]
+      }
+    ]
+  'principal_block':
+    'begin': '(?i:"principal"|"notprincipal")'
+    'beginCaptures':
+      '0':
+        'name': 'punctuation.definition.string.begin.json'
+    'end': '(,)|(?=\\})'
+    'endCaptures':
+      '0':
+        'name': 'punctuation.definition.string.end.json'
+    'name': 'string.quoted.double.json'
+    'patterns': [
+      {
+        'begin': ':'
+        'beginCaptures':
+          '0':
+            'name': 'punctuation.separator.dictionary.key-value.json'
+        'end': '(?=,)|(?=\\})'
+        'endCaptures':
+          '0':
+            'name': 'invalid.illegal.traili ng-dictionary-separator.json'
+        'name': 'string.quoted.double.json'
+        'patterns': [
+          {
+            'match': '"\\*"'
+            'name': 'entity.other.attribute-name'
+          }
+          { 'include': '#principal_map' }
+          {
+            'match': '[^\\s\\n]'
+            'name': 'invalid.illegal.unrecognized-string-escape.json'
+          }
+        ]
+      }
+    ]
+  'principal_map':
+    'begin': '\\{'
+    'beginCaptures':
+      '0':
+        'name': 'punctuation.definition.dictionary.begin.json'
+    'end': '\\}'
+    'endCaptures':
+      '0':
+        'name': 'punctuation.definition.dictionary.end.json'
+    'name': 'meta.structure.dictionary.json'
+    'patterns': [
+      { 'include': '#principal_map_entry' }
+      {
+        'match': '[^\\s\\n]'
+        'name': 'invalid.illegal.unrecognized-string-escape.json'
+      }
+    ]
+  'principal_map_entry':
+    'begin': '(?i:"aws"|"federated"|"service")'
+    'beginCaptures':
+      '0':
+        'name': 'punctuation.definition.string.begin.json'
+    'end': '(,)|(?=\\})'
+    'endCaptures':
+      '0':
+        'name': 'punctuation.definition.string.end.json'
+    'name': 'string.quoted.double.json'
+    'patterns': [
+      {
+        'begin': ':'
+        'beginCaptures':
+          '0':
+            'name': 'punctuation.separator.dictionary.key-value.json'
+        'end': '(?=,)|(?=\\})'
+        'endCaptures':
+          '0':
+            'name': 'invalid.illegal.trailing-dictionary-separator.json'
+        'name': 'string.quoted.double.json'
+        'patterns': [
+          { 'include': '#arn' }
+          { 'include': '#principal_array' }
+        ]
+      }
+    ]
+  'principal_array':
+    'begin': '\\['
+    'beginCaptures':
+      '0':
+        'name': 'punctuation.definition.array.begin.json'
+    'end': '(,?)[\\s\\n]*(\\])'
+    'endCaptures':
+      '1':
+        'name': 'invalid.illegal.trailing-array-separator.json'
+      '2':
+        'name': 'punctuation.definition.array.end.json'
+    'name': 'meta.structure.array.json'
+    'patterns': [
+      { 'include': '#arn' }
+      {
+        'match': ','
+        'name': 'punctuation.separator.array.json'
+      }
+      { 'include': '#error' }
+    ]
+  'action_block':
+    'begin': '(?i:"action"|"notaction")'
+    'beginCaptures':
+      '0':
+        'name': 'punctuation.definition.string.begin.json'
+    'end': '(,)|(?=\\})'
+    'endCaptures':
+      '0':
+        'name': 'punctuation.definition.string.end.json'
+    'name': 'string.quoted.double.json'
+    'patterns': [
+      {
+        'begin': ':'
+        'beginCaptures':
+          '0':
+            'name': 'punctuation.separator.dictionary.key-value.json'
+        'end': '(?=,)|(?=\\})'
+        'endCaptures':
+          '0':
+            'name': 'invalid.illegal.traili ng-dictionary-separator.json'
+        'name': 'string.quoted.double.json'
+        'patterns': [
+          { 'include': '#action' }
+          { 'include': '#action_array' }
+          {
+            'match': '[^\\s\\n]'
+            'name': 'invalid.illegal.unrecognized-string-escape.json'
+          }
+        ]
+      }
+    ]
+  'action_array':
+    'begin': '\\['
+    'beginCaptures':
+      '0':
+        'name': 'punctuation.definition.array.begin.json'
+    'end': '(,?)[\\s\\n]*(\\])'
+    'endCaptures':
+      '1':
+        'name': 'invalid.illegal.trailing-array-separator.json'
+      '2':
+        'name': 'punctuation.definition.array.end.json'
+    'name': 'meta.structure.array.json'
+    'patterns': [
+      {
+        'include': '#action'
+      }
+      {
+        'match': ','
+        'name': 'punctuation.separator.array.json'
+      }
+      { 'include': '#error' }
+    ]
+  'action':
+    'begin': '"'
+    'beginCaptures':
+      '0':
+        'name': 'entity.other.attribute-name'
+    'end': '"'
+    'endCaptures':
+      '0':
+        'name': 'entity.other.attribute-name'
+    'patterns': [
+      {
+        'match': '(?<=")(?i:{{SERVICE_LIST}})'
+        'name': 'entity.name.tag'
+      }
+      {
+        'match': '(?<=:)(?i:{{ACTION_LIST}})(?=")'
+        'name': 'entity.name.tag'
+      }
+      {
+        'match': ':'
+        'name': 'entity.other.attribute-name'
+      }
+      {
+        'match': '[a-zA-Z0-9\\*]*'
+        'name': 'entity.other.attribute-name'
+      }
+      { 'include': '#error' }
+    ]
+  'resource_block':
+    'begin': '(?i:"resource"|"notresource")'
+    'beginCaptures':
+      '0':
+        'name': 'punctuation.definition.string.begin.json'
+    'end': '(,)|(?=\\})'
+    'endCaptures':
+      '0':
+        'name': 'punctuation.definition.string.end.json'
+    'name': 'string.quoted.double.json'
+    'patterns': [
+      {
+        'begin': ':'
+        'beginCaptures':
+          '0':
+            'name': 'punctuation.separator.dictionary.key-value.json'
+        'end': '(?=,)|(?=\\})'
+        'endCaptures':
+          '0':
+            'name': 'invalid.illegal.traili ng-dictionary-separator.json'
+        'name': 'string.quoted.double.json'
+        'patterns': [
+          { 'include': '#arn' }
+          { 'include': '#resource_array' }
+          {
+            'match': '[^\\s\\n]'
+            'name': 'invalid.illegal.unrecognized-string-escape.json'
+          }
+        ]
+      }
+    ]
+  'resource_array':
+    'begin': '\\['
+    'beginCaptures':
+      '0':
+        'name': 'punctuation.definition.array.begin.json'
+    'end': '(,?)[\\s\\n]*(\\])'
+    'endCaptures':
+      '1':
+        'name': 'invalid.illegal.trailing-array-separator.json'
+      '2':
+        'name': 'punctuation.definition.array.end.json'
+    'name': 'meta.structure.array.json'
+    'patterns': [
+      { 'include': '#arn' }
+      {
+        'match': ','
+        'name': 'punctuation.separator.array.json'
+      }
+      { 'include': '#error' }
+    ]
+  'condition_block':
+    'begin': '(?i:"condition")'
+    'beginCaptures':
+      '0':
+        'name': 'punctuation.definition.string.begin.json'
+    'end': '(,)|(?=\\})'
+    'endCaptures':
+      '0':
+        'name': 'punctuation.definition.string.end.json'
+    'name': 'string.quoted.double.json'
+    'patterns': [
+      {
+        'begin': ':'
+        'beginCaptures':
+          '0':
+            'name': 'punctuation.separator.dictionary.key-value.json'
+        'end': '(?=,)|(?=\\})'
+        'endCaptures':
+          '0':
+            'name': 'invalid.illegal.traili ng-dictionary-separator.json'
+        'name': 'string.quoted.double.json'
+        'patterns': [
+          {
+            'include': '#condition_map'
+          }
+          {
+            'match': '[^\\s\\n]'
+            'name': 'invalid.illegal.unrecognized-string-escape.json'
+          }
+        ]
+      }
+    ]
+  'condition_map':
+    'begin': '\\{'
+    'beginCaptures':
+      '0':
+        'name': 'punctuation.definition.dictionary.begin.json'
+    'end': '\\}'
+    'endCaptures':
+      '0':
+        'name': 'punctuation.definition.dictionary.end.json'
+    'name': 'meta.structure.dictionary.json'
+    'patterns': [
+      { 'include': '#condition_type_entry' }
+      {
+        'match': '[^\\s\\n]'
+        'name': 'invalid.illegal.unrecognized-string-escape.json'
+      }
+    ]
+  'condition_type_entry':
+    'begin': '(?i:"[a-zA-Z0-9]*")'
+    'beginCaptures':
+      '0':
+        'name': 'punctuation.definition.string.begin.json'
+    'end': '(,)|(?=\\})'
+    'endCaptures':
+      '0':
+        'name': 'punctuation.definition.string.end.json'
+    'name': 'string.quoted.double.json'
+    'patterns': [
+      {
+        'begin': ':'
+        'beginCaptures':
+          '0':
+            'name': 'punctuation.separator.dictionary.key-value.json'
+        'end': '(?=,)|(?=\\})'
+        'endCaptures':
+          '0':
+            'name': 'invalid.illegal.trailing-dictionary-separator.json'
+        'name': 'string.quoted.double.json'
+        'patterns': [
+          {
+            'include': '#condition_key_map'
+          }
+        ]
+      }
+    ]
+  'condition_key_map':
+    'begin': '\\{'
+    'beginCaptures':
+      '0':
+        'name': 'punctuation.definition.dictionary.begin.json'
+    'end': '\\}'
+    'endCaptures':
+      '0':
+        'name': 'punctuation.definition.dictionary.end.json'
+    'name': 'meta.structure.dictionary.json'
+    'patterns': [
+      {
+        'include': '#condition_key_entry'
+      }
+      {
+        'match': '[^\\s\\n]'
+        'name': 'invalid.illegal.unrecognized-string-escape.json'
+      }
+    ]
+  'condition_key_entry':
+    'begin': '(?i:"[a-zA-Z0-9:]*")'
+    'beginCaptures':
+      '0':
+        'name': 'punctuation.definition.string.begin.json'
+    'end': '(,)|(?=\\})'
+    'endCaptures':
+      '0':
+        'name': 'punctuation.definition.string.end.json'
+    
+    'patterns': [
+      {
+        'begin': ':'
+        'beginCaptures':
+          '0':
+            'name': 'punctuation.separator.dictionary.key-value.json'
+        'end': '(?=,)|(?=\\})'
+        'endCaptures':
+          '0':
+            'name': 'invalid.illegal.trailing-dictionary-separator.json'
+        'name': 'string.quoted.double.json'
+        'patterns': [
+          {
+            'include': '#condition'
+          }
+          {
+            'include': '#condition_array'
+          }
+        ]
+      }
+    ]
+  'condition_array':
+    'begin': '\\['
+    'beginCaptures':
+      '0':
+        'name': 'punctuation.definition.array.begin.json'
+    'end': '(,?)[\\s\\n]*(\\])'
+    'endCaptures':
+      '1':
+        'name': 'invalid.illegal.trailing-array-separator.json'
+      '2':
+        'name': 'punctuation.definition.array.end.json'
+    'name': 'meta.structure.array.json'
+    'patterns': [
+      {
+        'include': '#condition'
+      }
+      {
+        'match': ','
+        'name': 'punctuation.separator.array.json'
+      }
+      { 'include': '#error' }
+    ]
+  'condition':
+    'match': '"[^"]*"'
+    'name': 'entity.other.attribute-name'
+  'arn':
+    'match': '"[^"]*"'
+    'name': 'entity.other.attribute-name'
+  'error':
+    'match': '[^\\s\\]]'
+    'name': 'invalid.illegal.expected-array-separator.json'

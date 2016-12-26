@@ -1,0 +1,34 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": [
+        "test:test",
+        "*",
+        "s3:*"
+        "s3:ListBucket",
+        "s3:ListBucketMultipartUploads",
+        "s3:PutObject",
+        "s3:PutObjectAcl",
+        "s3:PutObjectAclVersion",
+      ],
+      "Resource": "arn:aws:s3:::app-my-bucket/*",
+      "Principal": {
+        "aws" : "1234567890"
+      },
+      "Condition": {
+        "StringEqualsifExists": {
+          "aws:sourceVpce": [
+            "vpce-12345678"
+          ]
+        },
+        "IpAddressIfExists": {
+          "aws:SourceIp": [
+            "1.2.3.4/25"
+          ]
+        }
+      }
+    }
+  ]
+}

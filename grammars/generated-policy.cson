@@ -1,0 +1,619 @@
+'scopeName': 'policy.json'
+'fileTypes': [
+  'policy'
+  'policy.json'
+  'iam'
+  'iam.json'
+]
+'name': 'policy'
+'patterns': [
+  { 'include': '#policy' }
+]
+'repository':
+  'policy':
+    'begin': '\\{'
+    'beginCaptures':
+      '0':
+        'name': 'punctuation.definition.dictionary.begin.json'
+    'end': '\\}'
+    'endCaptures':
+      '0':
+        'name': 'punctuation.definition.dictionary.end.json'
+    'name': 'meta.structure.dictionary.json'
+    'patterns': [
+      { 'include': '#id_block' }
+      { 'include': '#version_block' }
+      { 'include': '#statement_block' }
+      {
+        'match': '[^\\s\\n]'
+        'name': 'invalid.illegal.unrecognized-string-escape.json'
+      }
+    ]
+  'id_block':
+    'begin': '(?i:"id")'
+    'beginCaptures':
+      '0':
+        'name': 'punctuation.definition.string.begin.json'
+    'end': '(,)|(?=\\})'
+    'endCaptures':
+      '0':
+        'name': 'punctuation.definition.string.end.json'
+    'name': 'string.quoted.double.json'
+    'patterns': [
+      {
+        'begin': ':'
+        'beginCaptures':
+          '0':
+            'name': 'punctuation.separator.dictionary.key-value.json'
+        'end': '(?=,)|(?=\\})'
+        'endCaptures':
+          '0':
+            'name': 'invalid.illegal.trailing-dictionary-separator.json'
+        'name': 'string.quoted.double.json'
+        'patterns': [
+          {
+            'match': '"[a-zA-Z0-9\\-_]*"'
+            'name': 'entity.other.attribute-name'
+          }
+          {
+            'match': '[^\\s\\n]'
+            'name': 'invalid.illegal.unrecognized-string-escape.json'
+          }
+        ]
+      }
+    ]
+  'version_block':
+    'begin': '(?i:"version")'
+    'beginCaptures':
+      '0':
+        'name': 'punctuation.definition.string.begin.json'
+    'end': '(,)|(?=\\})'
+    'endCaptures':
+      '0':
+        'name': 'punctuation.definition.string.end.json'
+    'name': 'string.quoted.double.json'
+    'patterns': [
+      {
+        'begin': ':'
+        'beginCaptures':
+          '0':
+            'name': 'punctuation.separator.dictionary.key-value.json'
+        'end': '(?=,)|(?=\\})'
+        'endCaptures':
+          '0':
+            'name': 'invalid.illegal.trailing-dictionary-separator.json'
+        'name': 'string.quoted.double.json'
+        'patterns': [
+          {
+            'match': '("2008-10-17"|"2012-10-17")'
+            'name': 'entity.other.attribute-name'
+          }
+          {
+            'match': '[^\\s\\n]'
+            'name': 'invalid.illegal.unrecognized-string-escape.json'
+          }
+        ]
+      }
+    ]
+  'statement_block':
+    'begin': '(?i:"statement")'
+    'beginCaptures':
+      '0':
+        'name': 'punctuation.definition.string.begin.json'
+    'end': '(,)|(?=\\})'
+    'endCaptures':
+      '0':
+        'name': 'punctuation.definition.string.end.json'
+    'name': 'string.quoted.double.json'
+    'patterns': [
+      {
+        'begin': ':'
+        'beginCaptures':
+          '0':
+            'name': 'punctuation.separator.dictionary.key-value.json'
+        'end': '(?=,)|(?=\\})'
+        'endCaptures':
+          '0':
+            'name': 'invalid.illegal.trailing-dictionary-separator.json'
+        'name': 'string.quoted.double.json'
+        'patterns': [
+          { 'include': '#statement_array' }
+        ]
+      }
+    ]
+  'statement_array':
+    'begin': '\\['
+    'beginCaptures':
+      '0':
+        'name': 'punctuation.definition.array.begin.json'
+    'end': '(,?)[\\s\\n]*(\\])'
+    'endCaptures':
+      '1':
+        'name': 'invalid.illegal.trailing-array-separator.json'
+      '2':
+        'name': 'punctuation.definition.array.end.json'
+    'name': 'meta.structure.array.json'
+    'patterns': [
+      { 'include': '#statement' }
+      {
+        'match': ','
+        'name': 'punctuation.separator.array.json'
+      }
+      { 'include': '#error' }
+    ]
+  'statement':
+    'begin': '\\{'
+    'beginCaptures':
+      '0':
+        'name': 'punctuation.definition.dictionary.begin.json'
+    'end': '\\}'
+    'endCaptures':
+      '0':
+        'name': 'punctuation.definition.dictionary.end.json'
+    'name': 'meta.structure.dictionary.json'
+    'patterns': [
+      { 'include': '#sid_block' }
+      { 'include': '#effect_block' }
+      { 'include': '#principal_block' }
+      { 'include': '#action_block' }
+      { 'include': '#resource_block' }
+      { 'include': '#condition_block' }
+      {
+        'match': '[^\\s\\n]'
+        'name': 'invalid.illegal.unrecognized-string-escape.json'
+      }
+    ]
+  'sid_block':
+    'begin': '(?i:"sid")'
+    'beginCaptures':
+      '0':
+        'name': 'punctuation.definition.string.begin.json'
+    'end': '(,)|(?=\\})'
+    'endCaptures':
+      '0':
+        'name': 'punctuation.definition.string.end.json'
+    'name': 'string.quoted.double.json'
+    'patterns': [
+      {
+        'begin': ':'
+        'beginCaptures':
+          '0':
+            'name': 'punctuation.separator.dictionary.key-value.json'
+        'end': '(?=,)|(?=\\})'
+        'endCaptures':
+          '0':
+            'name': 'invalid.illegal.trailing-dictionary-separator.json'
+        'name': 'string.quoted.double.json'
+        'patterns': [
+          {
+            'match': '"[a-zA-Z0-9]*"'
+            'name': 'entity.other.attribute-name'
+          }
+          {
+            'match': '[^\\s\\n]'
+            'name': 'invalid.illegal.unrecognized-string-escape.json'
+          }
+        ]
+      }
+    ]
+  'effect_block':
+    'begin': '(?i:"effect")'
+    'beginCaptures':
+      '0':
+        'name': 'punctuation.definition.string.begin.json'
+    'end': '(,)|(?=\\})'
+    'endCaptures':
+      '0':
+        'name': 'punctuation.definition.string.end.json'
+    'name': 'string.quoted.double.json'
+    'patterns': [
+      {
+        'begin': ':'
+        'beginCaptures':
+          '0':
+            'name': 'punctuation.separator.dictionary.key-value.json'
+        'end': '(?=,)|(?=\\})'
+        'endCaptures':
+          '0':
+            'name': 'invalid.illegal.trailing-dictionary-separator.json'
+        'name': 'string.quoted.double.json'
+        'patterns': [
+          {
+            'match': '(?i:"allow"|"deny")'
+            'name': 'entity.other.attribute-name'
+          }
+          {
+            'match': '[^\\s\\n]'
+            'name': 'invalid.illegal.unrecognized-string-escape.json'
+          }
+        ]
+      }
+    ]
+  'principal_block':
+    'begin': '(?i:"principal"|"notprincipal")'
+    'beginCaptures':
+      '0':
+        'name': 'punctuation.definition.string.begin.json'
+    'end': '(,)|(?=\\})'
+    'endCaptures':
+      '0':
+        'name': 'punctuation.definition.string.end.json'
+    'name': 'string.quoted.double.json'
+    'patterns': [
+      {
+        'begin': ':'
+        'beginCaptures':
+          '0':
+            'name': 'punctuation.separator.dictionary.key-value.json'
+        'end': '(?=,)|(?=\\})'
+        'endCaptures':
+          '0':
+            'name': 'invalid.illegal.traili ng-dictionary-separator.json'
+        'name': 'string.quoted.double.json'
+        'patterns': [
+          {
+            'match': '"\\*"'
+            'name': 'entity.other.attribute-name'
+          }
+          { 'include': '#principal_map' }
+          {
+            'match': '[^\\s\\n]'
+            'name': 'invalid.illegal.unrecognized-string-escape.json'
+          }
+        ]
+      }
+    ]
+  'principal_map':
+    'begin': '\\{'
+    'beginCaptures':
+      '0':
+        'name': 'punctuation.definition.dictionary.begin.json'
+    'end': '\\}'
+    'endCaptures':
+      '0':
+        'name': 'punctuation.definition.dictionary.end.json'
+    'name': 'meta.structure.dictionary.json'
+    'patterns': [
+      { 'include': '#principal_map_entry' }
+      {
+        'match': '[^\\s\\n]'
+        'name': 'invalid.illegal.unrecognized-string-escape.json'
+      }
+    ]
+  'principal_map_entry':
+    'begin': '(?i:"aws"|"federated"|"service")'
+    'beginCaptures':
+      '0':
+        'name': 'punctuation.definition.string.begin.json'
+    'end': '(,)|(?=\\})'
+    'endCaptures':
+      '0':
+        'name': 'punctuation.definition.string.end.json'
+    'name': 'string.quoted.double.json'
+    'patterns': [
+      {
+        'begin': ':'
+        'beginCaptures':
+          '0':
+            'name': 'punctuation.separator.dictionary.key-value.json'
+        'end': '(?=,)|(?=\\})'
+        'endCaptures':
+          '0':
+            'name': 'invalid.illegal.trailing-dictionary-separator.json'
+        'name': 'string.quoted.double.json'
+        'patterns': [
+          { 'include': '#arn' }
+          { 'include': '#principal_array' }
+        ]
+      }
+    ]
+  'principal_array':
+    'begin': '\\['
+    'beginCaptures':
+      '0':
+        'name': 'punctuation.definition.array.begin.json'
+    'end': '(,?)[\\s\\n]*(\\])'
+    'endCaptures':
+      '1':
+        'name': 'invalid.illegal.trailing-array-separator.json'
+      '2':
+        'name': 'punctuation.definition.array.end.json'
+    'name': 'meta.structure.array.json'
+    'patterns': [
+      { 'include': '#arn' }
+      {
+        'match': ','
+        'name': 'punctuation.separator.array.json'
+      }
+      { 'include': '#error' }
+    ]
+  'action_block':
+    'begin': '(?i:"action"|"notaction")'
+    'beginCaptures':
+      '0':
+        'name': 'punctuation.definition.string.begin.json'
+    'end': '(,)|(?=\\})'
+    'endCaptures':
+      '0':
+        'name': 'punctuation.definition.string.end.json'
+    'name': 'string.quoted.double.json'
+    'patterns': [
+      {
+        'begin': ':'
+        'beginCaptures':
+          '0':
+            'name': 'punctuation.separator.dictionary.key-value.json'
+        'end': '(?=,)|(?=\\})'
+        'endCaptures':
+          '0':
+            'name': 'invalid.illegal.traili ng-dictionary-separator.json'
+        'name': 'string.quoted.double.json'
+        'patterns': [
+          { 'include': '#action' }
+          { 'include': '#action_array' }
+          {
+            'match': '[^\\s\\n]'
+            'name': 'invalid.illegal.unrecognized-string-escape.json'
+          }
+        ]
+      }
+    ]
+  'action_array':
+    'begin': '\\['
+    'beginCaptures':
+      '0':
+        'name': 'punctuation.definition.array.begin.json'
+    'end': '(,?)[\\s\\n]*(\\])'
+    'endCaptures':
+      '1':
+        'name': 'invalid.illegal.trailing-array-separator.json'
+      '2':
+        'name': 'punctuation.definition.array.end.json'
+    'name': 'meta.structure.array.json'
+    'patterns': [
+      {
+        'include': '#action'
+      }
+      {
+        'match': ','
+        'name': 'punctuation.separator.array.json'
+      }
+      { 'include': '#error' }
+    ]
+  'action':
+    'begin': '"'
+    'beginCaptures':
+      '0':
+        'name': 'entity.other.attribute-name'
+    'end': '"'
+    'endCaptures':
+      '0':
+        'name': 'entity.other.attribute-name'
+    'patterns': [
+      {
+        'match': '(?<=")(?i:dms|acm|ecr|execute-api|apigateway|discovery|appstream|polly|application-autoscaling|autoscaling|budgets|devicefarm|elasticloadbalancing|cloudhsm|elasticbeanstalk|route53|cloudformation|codepipeline|cloudsearch|cloudtrail|config|codecommit|ec2|codedeploy|elasticfilesystem|elastictranscoder|cloudwatch|events|health|iam|importexport|kinesis|sdb|lambda|mobilehub|ssm|swf|storagegateway|sqs|ses|redshift|rds|elasticmapreduce|sns|s3|ec2|dynamodb|glacier|cloudfront|sts|workdocs|ds|elasticache|logs|cognito-identity|cognito-sync|mobileanalytics|route53domains|kms|aws-portal|directconnect|aws-marketplace|aws-marketplace-management|servicecatalog|shield|trustedadvisor|opsworks|opsworks-cm|workmail|ecs|lightsail|machinelearning|rekognition|workspaces|wam|datapipeline|codebuild|es|waf|inspector|kinesisanalytics|firehose|iot|gamelift|mechanicalturk|xray)'
+        'name': 'entity.name.tag'
+      }
+      {
+        'match': '(?<=:)(?i:addtagstoresource|createendpoint|createreplicationinstance|createreplicationsubnetgroup|createreplicationtask|deleteendpoint|deletereplicationinstance|deletereplicationsubnetgroup|deletereplicationtask|describeaccountattributes|describeconnections|describeendpointtypes|describeendpoints|describeorderablereplicationinstances|describerefreshschemasstatus|describereplicationinstances|describereplicationsubnetgroups|describereplicationtasks|describeschemas|describetablestatistics|listtagsforresource|modifyendpoint|modifyreplicationinstance|modifyreplicationsubnetgroup|refreshschemas|removetagsfromresource|startreplicationtask|stopreplicationtask|testconnection|addtagstocertificate|deletecertificate|describecertificate|getcertificate|listcertificates|listtagsforcertificate|removetagsfromcertificate|requestcertificate|resendvalidationemail|batchchecklayeravailability|batchdeleteimage|batchgetimage|completelayerupload|createrepository|deleterepository|deleterepositorypolicy|describerepositories|getauthorizationtoken|getdownloadurlforlayer|getrepositorypolicy|initiatelayerupload|listimages|putimage|setrepositorypolicy|uploadlayerpart|invoke|invalidatecache|delete|get|head|options|patch|post|put|createtags|deletetags|describeagents|describeconfigurations|describeexportconfigurations|describetags|exportconfigurations|listconfigurations|startdatacollectionbyagentids|stopdatacollectionbyagentids|createapplication|createsession|deleteapplication|getapiroot|getapplication|getapplications|getapplicationerror|getapplicationerrors|getapplicationstatus|getsession|getsessions|getsessionstatus|updateapplication|updateapplicationstate|updatesessionstate|deletelexicon|describevoices|getlexicon|listlexicon|putlexicon|synthesizespeech|deletescalingpolicy|deregisterscalabletarget|describescalabletargets|describescalingactivities|describescalingpolicies|putscalingpolicy|registerscalabletarget|attachinstances|attachloadbalancers|completelifecycleaction|createautoscalinggroup|createlaunchconfiguration|createorupdatetags|deleteautoscalinggroup|deletelaunchconfiguration|deletelifecyclehook|deletenotificationconfiguration|deletepolicy|deletescheduledaction|deletetags|describeaccountlimits|describeadjustmenttypes|describeautoscalinggroups|describeautoscalinginstances|describeautoscalingnotificationtypes|describelaunchconfigurations|describelifecyclehooktypes|describelifecyclehooks|describeloadbalancers|describemetriccollectiontypes|describenotificationconfigurations|describepolicies|describescalingactivities|describescalingprocesstypes|describescheduledactions|describetags|describeterminationpolicytypes|detachinstances|detachloadbalancers|disablemetricscollection|enablemetricscollection|enterstandby|executepolicy|exitstandby|putlifecyclehook|putnotificationconfiguration|putscalingpolicy|putscheduledupdategroupaction|recordlifecycleactionheartbeat|resumeprocesses|setdesiredcapacity|setinstancehealth|setinstanceprotection|suspendprocesses|terminateinstanceinautoscalinggroup|updateautoscalinggroup|viewbudget|modifybudget|createdevicepool|createnetworkprofile|createproject|createremoteaccesssession|createupload|deletedevicepool|deletenetworkprofile|deleteproject|deleteremoteaccesssession|deleterun|deleteupload|getaccountsettings|getdevice|getdevicepool|getdevicepoolcompatibility|getjob|getnetworkprofile|getofferingstatus|getproject|getremoteaccesssession|getrun|getsuite|gettest|getupload|installtoremoteaccesssession|listartifacts|listdevicepools|listdevices|listjobs|listnetworkprofiles|listofferingtransactions|listofferings|listprojects|listremoteaccesssessions|listruns|listsamples|listsuites|listtests|listuniqueproblems|listuploads|purchaseoffering|renewoffering|schedulerun|stopremoteaccesssession|stoprun|updatedevicepool|updatenetworkprofile|updateproject|addtags|applysecuritygroupstoloadbalancer|attachloadbalancertosubnets|configurehealthcheck|createappcookiestickinesspolicy|createlistener|createlbcookiestickinesspolicy|createloadbalancer|createloadbalancerlisteners|createloadbalancerpolicy|createrule|createtargetgroup|deletelistener|deleteloadbalancer|deleteloadbalancerlisteners|deleteloadbalancerpolicy|deleterule|deletetargetgroup|deregisterinstancesfromloadbalancer|deregistertargets|describeinstancehealth|describelisteners|describeloadbalancerattributes|describeloadbalancerpolicytypes|describeloadbalancerpolicies|describeloadbalancers|describerules|describesslpolicies|describetags|describetargetgroupattributes|describetargetgroups|describetargethealth|detachloadbalancerfromsubnets|disableavailabilityzonesforloadbalancer|enableavailabilityzonesforloadbalancer|modifylistener|modifyloadbalancerattributes|modifyrule|modifytargetgroup|modifytargetgroupattributes|registertargets|registerinstanceswithloadbalancer|removetags|setloadbalancerlistenersslcertificate|setloadbalancerpoliciesforbackendserver|setloadbalancerpoliciesoflistener|setrulepriorities|setsecuritygroups|setsubnets|addtagstoresource|createlunaclient|createhapg|createhsm|deletelunaclient|deletehapg|deletehsm|describelunaclient|describehapg|describehsm|getconfig|listavailablezones|listlunaclients|listhapgs|listhsms|listtagsforresource|modifylunaclient|modifyhapg|modifyhsm|removetagsfromresource|applyenvironmentmanagedaction|checkdnsavailability|createapplication|createapplicationversion|createconfigurationtemplate|createenvironment|createstoragelocation|deleteapplication|deleteapplicationversion|deleteconfigurationtemplate|deleteenvironmentconfiguration|describeapplicationversions|describeapplications|describeconfigurationoptions|describeconfigurationsettings|describeenvironmenthealth|describeenvironmentmanagedactions|describeenvironmentmanagedactionhistory|describeenvironmentresources|describeenvironments|describeevents|describeinstanceshealth|listavailablesolutionstacks|rebuildenvironment|requestenvironmentinfo|restartappserver|retrieveenvironmentinfo|swapenvironmentcnames|terminateenvironment|updateapplication|updateapplicationversion|updateconfigurationtemplate|updateenvironment|validateconfigurationsettings|associatevpcwithhostedzone|changeresourcerecordsets|changetagsforresource|createhealthcheck|createhostedzone|createreusabledelegationset|createtrafficpolicy|createtrafficpolicyinstance|createtrafficpolicyversion|deletehealthcheck|deletehostedzone|deletereusabledelegationset|deletetrafficpolicy|deletetrafficpolicyinstance|disabledomainautorenew|disassociatevpcfromhostedzone|enabledomainautorenew|getchange|getcheckeripranges|getgeolocation|gethealthcheck|gethealthcheckcount|gethealthchecklastfailurereason|gethealthcheckstatus|gethostedzone|gethostedzonecount|getreusabledelegationset|gettrafficpolicy|gettrafficpolicyinstance|gettrafficpolicyinstancecount|listgeolocations|listhealthchecks|listhostedzones|listhostedzonesbyname|listresourcerecordsets|listreusabledelegationsets|listtagsforresource|listtagsforresources|listtrafficpolicies|listtrafficpolicyinstances|listtrafficpolicyinstancesbyhostedzone|listtrafficpolicyinstancesbypolicy|listtrafficpolicyversions|updatehealthcheck|updatehostedzonecomment|updatetrafficpolicycomment|updatetrafficpolicyinstance|cancelupdatestack|continueupdaterollback|createchangeset|createstack|createuploadbucket|deletestack|describeaccountlimits|describechangeset|describestackevents|describestackresource|describestackresources|describestacks|estimatetemplatecost|executechangeset|getstackpolicy|gettemplate|gettemplatesummary|listchangesets|liststackresources|liststacks|previewstackupdate|setstackpolicy|signalresource|updatestack|validatetemplate|acknowledgejob|acknowledgethirdpartyjob|createcustomactiontype|createpipeline|deletecustomactiontype|deletepipeline|disablestagetransition|enablestagetransition|getjobdetails|getpipeline|getpipelinestate|getthirdpartyjobdetails|listactiontypes|listpipelines|pollforjobs|pollforthirdpartyjobs|putactionrevision|putapprovalresult|putjobfailureresult|putjobsuccessresult|putthirdpartyjobfailureresult|putthirdpartyjobsuccessresult|retrystageexecution|startpipelineexecution|updatepipeline|buildsuggesters|createdomain|defineanalysisscheme|defineexpression|defineindexfield|defineindexfields|definesuggester|deleteanalysisscheme|deletedomain|deleteexpression|deleteindexfield|deletesuggester|describeanalysisschemes|describeavailabilityoptions|describedomains|describeexpressions|describeindexfields|describescalingparameters|describeserviceaccesspolicies|describesuggesters|document|indexdocuments|listdomainnames|search|suggest|updateavailabilityoptions|updatescalingparameters|updateserviceaccesspolicies|addtags|createtrail|deletetrail|describetrails|geteventselectors|gettrailstatus|listpublickeys|listtags|lookupevents|puteventselectors|removetags|startlogging|stoplogging|updatetrail|deleteconfigrule|deleteconfigurationrecorder|deletedeliverychannel|deleteevaluationresults|deliverconfigsnapshot|describecompliancebyconfigrule|describecompliancebyresource|describeconfigruleevaluationstatus|describeconfigrules|describeconfigurationrecorderstatus|describeconfigurationrecorders|describedeliverychannelstatus|describedeliverychannels|getcompliancedetailsbyconfigrule|getcompliancedetailsbyresource|getcompliancesummarybyconfigrule|getcompliancesummarybyresourcetype|getresourceconfighistory|getresources|gettagkeys|listdiscoveredresources|putconfigrule|putconfigurationrecorder|putdeliverychannel|putevaluations|startconfigrulesevaluation|startconfigurationrecorder|stopconfigurationrecorder|batchgetrepositories|createbranch|createrepository|deleterepository|getblob|getbranch|getobjectidentifier|getrepository|gettree|gitpull|gitpush|listbranches|listrepositories|updatedefaultbranch|updaterepositorydescription|updaterepositoryname|cancelspotfleetrequests|describespotfleetinstances|describespotfleetrequests|describespotfleetrequesthistory|modifyspotfleetrequest|requestspotfleet|addtagstoonpremisesinstances|batchgetapplicationrevisions|batchgetapplications|batchgetdeploymentgroups|batchgetdeploymentinstances|batchgetdeployments|batchgetonpremisesinstances|createapplication|createdeployment|createdeploymentconfig|createdeploymentgroup|deleteapplication|deletedeploymentconfig|deletedeploymentgroup|deregisteronpremisesinstance|getapplication|getapplicationrevision|getdeployment|getdeploymentconfig|getdeploymentgroup|getdeploymentinstance|getonpremisesinstance|listapplicationrevisions|listapplications|listdeploymentconfigs|listdeploymentgroups|listdeploymentinstances|listdeployments|listonpremisesinstances|registerapplicationrevision|registeronpremisesinstance|removetagsfromonpremisesinstances|stopdeployment|updateapplication|updatedeploymentgroup|createfilesystem|createtags|describetags|deletetags|createmounttarget|modifymounttargetsecuritygroups|describemounttargetsecuritygroups|describefilesystems|describemounttargets|deletemounttarget|deletefilesystem|canceljob|createjob|createpipeline|createpreset|deletepipeline|deletepreset|listjobsbypipeline|listjobsbystatus|listpipelines|listpresets|readjob|readpipeline|readpreset|testrole|updatepipeline|updatepipelinenotifications|updatepipelinestatus|deletealarms|describealarmhistory|describealarms|describealarmsformetric|disablealarmactions|enablealarmactions|getmetricdata|getmetricstatistics|listmetrics|putmetricalarm|putmetricdata|setalarmstate|deleterule|describerule|disablerule|enablerule|listrulenamesbytarget|listrules|listtargetsbyrule|putevents|putrule|puttargets|removetargets|testeventpattern|describeaffectedentities|describeentityaggregates|describeeventaggregates|describeevents|describeeventdetails|describeeventtypes|addroletoinstanceprofile|addusertogroup|addclientidtoopenidconnectprovider|attachgrouppolicy|attachrolepolicy|attachuserpolicy|changepassword|createaccesskey|createaccountalias|creategroup|createinstanceprofile|createloginprofile|createopenidconnectprovider|createpolicy|createpolicyversion|createrole|createsamlprovider|createuser|createvirtualmfadevice|deactivatemfadevice|deleteaccesskey|deleteaccountalias|deleteaccountpasswordpolicy|deletegroup|deletegrouppolicy|deleteinstanceprofile|deleteloginprofile|deleteopenidconnectprovider|deletepolicy|deletepolicyversion|deleterole|deleterolepolicy|deletesamlprovider|deletesshpublickey|deleteservercertificate|deletesigningcertificate|deleteuser|deleteuserpolicy|deletevirtualmfadevice|detachgrouppolicy|detachrolepolicy|detachuserpolicy|enablemfadevice|generatecredentialreport|generateservicelastaccesseddetails|getaccesskeylastused|getaccountauthorizationdetails|getaccountpasswordpolicy|getaccountsummary|getcontextkeysforcustompolicy|getcontextkeysforprincipalpolicy|getcredentialreport|getgroup|getgrouppolicy|getinstanceprofile|getloginprofile|getopenidconnectprovider|getpolicy|getpolicyversion|getrole|getrolepolicy|getsamlprovider|getsshpublickey|getservercertificate|getservicelastaccesseddetails|getservicelastaccesseddetailswithentities|getuser|getuserpolicy|listaccesskeys|listaccountaliases|listattachedgrouppolicies|listattachedrolepolicies|listattacheduserpolicies|listentitiesforpolicy|listgrouppolicies|listgroups|listgroupsforuser|listinstanceprofiles|listinstanceprofilesforrole|listmfadevices|listopenidconnectproviders|listpolicies|listpoliciesgrantingserviceaccess|listpolicyversions|listrolepolicies|listroles|listsamlproviders|listsshpublickeys|listservercertificates|listsigningcertificates|listuserpolicies|listusers|listvirtualmfadevices|passrole|putgrouppolicy|putrolepolicy|putuserpolicy|removeclientidfromopenidconnectprovider|removerolefrominstanceprofile|removeuserfromgroup|resyncmfadevice|setdefaultpolicyversion|simulatecustompolicy|simulateprincipalpolicy|updateaccesskey|updateaccountpasswordpolicy|updateassumerolepolicy|updategroup|updateloginprofile|updateopenidconnectproviderthumbprint|updatesamlprovider|updatesshpublickey|updateservercertificate|updatesigningcertificate|updateuser|uploadsshpublickey|uploadservercertificate|uploadsigningcertificate|createjob|updatejob|canceljob|listjobs|getstatus|getshippinglabel|addtagstostream|createstream|decreasestreamretentionperiod|deletestream|describelimits|describestream|disableenhancedmonitoring|enableenhancedmonitoring|getsharditerator|getrecords|increasestreamretentionperiod|liststreams|listtagsforstream|mergeshards|putrecord|putrecords|removetagsfromstream|splitshard|updateshardcount|batchdeleteattributes|batchputattributes|createdomain|deleteattributes|deletedomain|domainmetadata|getattributes|listdomains|putattributes|select|addpermission|createalias|createeventsourcemapping|createfunction|deletealias|deleteeventsourcemapping|deletefunction|getalias|geteventsourcemapping|getfunction|getfunctionconfiguration|getpolicy|invokeasync|invokefunction|listaliases|listeventsourcemappings|listfunctions|listversionsbyfunction|publishversion|removepermission|updatealias|updateeventsourcemapping|updatefunctioncode|updatefunctionconfiguration|createproject|createservicerole|deleteproject|generateprojectparameters|getproject|listavailablefeatures|listavailableregions|listprojects|updateproject|validateproject|verifyservicerole|addtagstoresource|cancelcommand|createactivation|createassociation|createassociationbatch|createdocument|createmaintenancewindow|deleteactivation|deleteassociation|deletedocument|deletemaintenancewindow|deleteparameter|deregistermanagedinstance|deregistertargetfrommaintenancewindow|deregistertaskfrommaintenancewindow|describeactivations|describeassociation|describeautomationactions|describeautomationexecutions|describedocument|describedocumentpermission|describeeffectiveinstanceassociations|describeinstanceassociationsstatus|describeinstanceinformation|describemaintenancewindowexecutions|describemaintenancewindowexecutiontaskinvocations|describemaintenancewindowexecutiontasks|describemaintenancewindows|describemaintenancewindowtargets|describemaintenancewindowtasks|describeparameters|getcommandinvocation|getinventory|getinventoryschema|getdocument|getmaintenancewindow|getmaintenancewindowexecution|getmaintenancewindowexecutiontask|getparameterhistory|getparameters|listassociations|listcommandinvocations|listcommands|listdocuments|listdocumentversions|listinstanceassociations|listinventoryentries|listtagsforresource|modifydocumentpermission|putinventory|putparameter|registertargetwithmaintenancewindow|registertaskwithmaintenancewindow|removetagsfromresource|sendcommand|startassociationsonce|updateassociation|updateassociationstatus|updatedocument|updatedocumentdefaultversion|updateinstanceassociationstatus|updatemaintenancewindow|updatemanagedinstancerole|canceltimer|cancelworkflowexecution|completeworkflowexecution|continueasnewworkflowexecution|countclosedworkflowexecutions|countopenworkflowexecutions|countpendingactivitytasks|countpendingdecisiontasks|deprecateactivitytype|deprecatedomain|deprecateworkflowtype|describeactivitytype|describedomain|describeworkflowexecution|describeworkflowtype|failworkflowexecution|getworkflowexecutionhistory|listactivitytypes|listclosedworkflowexecutions|listdomains|listopenworkflowexecutions|listworkflowtypes|pollforactivitytask|pollfordecisiontask|recordactivitytaskheartbeat|recordmarker|registeractivitytype|registerdomain|registerworkflowtype|requestcancelactivitytask|requestcancelexternalworkflowexecution|requestcancelworkflowexecution|respondactivitytaskcanceled|respondactivitytaskcompleted|respondactivitytaskfailed|responddecisiontaskcompleted|scheduleactivitytask|signalexternalworkflowexecution|signalworkflowexecution|startchildworkflowexecution|starttimer|startworkflowexecution|terminateworkflowexecution|activategateway|addcache|adduploadbuffer|addworkingstorage|cancelarchival|cancelretrieval|createcachediscsivolume|createsnapshot|createsnapshotfromvolumerecoverypoint|createstorediscsivolume|createtapes|createtapewithbarcode|deletebandwidthratelimit|deletechapcredentials|deletegateway|deletesnapshotschedule|deletetape|deletetapearchive|deletevolume|describebandwidthratelimit|describecache|describecachediscsivolumes|describechapcredentials|describegatewayinformation|describemaintenancestarttime|describesnapshotschedule|describestorediscsivolumes|describetapearchives|describetaperecoverypoints|describetapes|describeuploadbuffer|describevtldevices|describeworkingstorage|disablegateway|listgateways|listlocaldisks|listtagsforresource|listtapes|listvolumerecoverypoints|listvolumes|retrievetapearchive|retrievetaperecoverypoint|setlocalconsolepassword|shutdowngateway|startgateway|updatebandwidthratelimit|updatechapcredentials|updategatewayinformation|updategatewaysoftwarenow|updatemaintenancestarttime|updatesnapshotschedule|addpermission|changemessagevisibility|changemessagevisibilitybatch|createqueue|deletemessage|deletemessagebatch|deletequeue|getqueueattributes|getqueueurl|listdeadlettersourcequeues|listqueues|purgequeue|receivemessage|removepermission|sendmessage|sendmessagebatch|setqueueattributes|clonereceiptruleset|createreceiptfilter|createreceiptrule|createreceiptruleset|deleteidentity|deleteidentitypolicy|deletereceiptfilter|deletereceiptrule|deletereceiptruleset|deleteverifiedemailaddress|describeactivereceiptruleset|describereceiptrule|describereceiptruleset|getidentitydkimattributes|getidentitynotificationattributes|getidentitypolicies|getidentityverificationattributes|getsendquota|getsendstatistics|listidentities|listidentitypolicies|listreceiptfilters|listreceiptrulesets|listverifiedemailaddresses|putidentitypolicy|reorderreceiptruleset|sendbounce|sendemail|sendrawemail|setactivereceiptruleset|setidentitydkimenabled|setidentitynotificationtopic|setidentityfeedbackforwardingenabled|setreceiptruleposition|updatereceiptrule|verifydomaindkim|verifydomainidentity|verifyemailaddress|verifyemailidentity|authorizeclustersecuritygroupingress|authorizesnapshotaccess|cancelquerysession|copyclustersnapshot|createcluster|createclusterparametergroup|createclustersecuritygroup|createclustersnapshot|createclustersubnetgroup|createeventsubscription|createhsmclientcertificate|createhsmconfiguration|createtags|deletecluster|deleteclusterparametergroup|deleteclustersecuritygroup|deleteclustersnapshot|deleteclustersubnetgroup|deleteeventsubscription|deletehsmclientcertificate|deletehsmconfiguration|deletetags|describeclusterparametergroups|describeclusterparameters|describeclustersecuritygroups|describeclustersnapshots|describeclustersubnetgroups|describeclusterversions|describeclusters|describedefaultclusterparameters|describeeventcategories|describeeventsubscriptions|describeevents|describehsmclientcertificates|describehsmconfigurations|describeloggingstatus|describeorderableclusteroptions|describereservednodeofferings|describereservednodes|describeresize|describetags|disablelogging|disablesnapshotcopy|enablelogging|enablesnapshotcopy|modifycluster|modifyclusterparametergroup|modifyclustersubnetgroup|modifyeventsubscription|modifysnapshotcopyretentionperiod|purchasereservednodeoffering|rebootcluster|resetclusterparametergroup|restorefromclustersnapshot|revokeclustersecuritygroupingress|revokesnapshotaccess|rotateencryptionkey|viewqueriesinconsole|addtagstoresource|addsourceidentifiertosubscription|applypendingmaintenanceaction|authorizedbsecuritygroupingress|copydbclustersnapshot|copydbparametergroup|copydbsnapshot|copyoptiongroup|createdbclusterparametergroup|createdbclustersnapshot|createdbcluster|createdbinstance|createdbinstancereadreplica|createdbparametergroup|createdbsecuritygroup|createdbsnapshot|createdbsubnetgroup|createeventsubscription|createoptiongroup|deletedbclusterparametergroup|deletedbclustersnapshot|deletedbcluster|deletedbinstance|deletedbparametergroup|deletedbsecuritygroup|deletedbsnapshot|deletedbsubnetgroup|deleteeventsubscription|deleteoptiongroup|describeaccountattributes|describecertificates|describeenginedefaultclusterparameters|describeenginedefaultparameters|describedbclusterparametergroups|describedbclusterparameters|describedbclustersnapshots|describedbclusters|describedbinstances|describedblogfiles|describedbparametergroups|describedbparameters|describedbsecuritygroups|describedbsnapshotattributes|describedbsnapshots|describedbengineversions|describedbsubnetgroups|describeeventcategories|describeevents|describeeventsubscriptions|describeoptiongroups|describeoptiongroupoptions|describeorderabledbinstanceoptions|describependingmaintenanceactions|describereserveddbinstances|describereserveddbinstancesofferings|downloadcompletedblogfile|downloaddblogfileportion|failoverdbcluster|listtagsforresource|modifydbclusterparametergroup|modifydbcluster|modifydbinstance|modifydbparametergroup|modifydbsnapshotattribute|modifydbsubnetgroup|modifyeventsubscription|modifyoptiongroup|promotereadreplica|purchasereserveddbinstancesoffering|rebootdbinstance|removesourceidentifierfromsubscription|removetagsfromresource|restoredbclusterfromsnapshot|restoredbclustertopointintime|restoredbinstancefromdbsnapshot|restoredbinstancetopointintime|resetdbclusterparametergroup|resetdbparametergroup|revokedbsecuritygroupingress|addinstancegroups|addtags|addjobflowsteps|createsecurityconfiguration|deletesecurityconfiguration|describecluster|describejobflows|describesecurityconfiguration|describestep|listbootstrapactions|listclusters|listinstancegroups|listinstances|listsecurityconfigurations|liststeps|modifyinstancegroups|removetags|runjobflow|setterminationprotection|setvisibletoallusers|terminatejobflows|addpermission|checkifphonenumberisoptedout|confirmsubscription|createplatformapplication|createplatformendpoint|createtopic|deleteendpoint|deleteplatformapplication|deletetopic|getendpointattributes|getplatformapplicationattributes|getsmsattributes|getsubscriptionattributes|gettopicattributes|listendpointsbyplatformapplication|listphonenumbersoptedout|listplatformapplications|listsubscriptions|listsubscriptionsbytopic|listtopics|optinphonenumber|publish|removepermission|setendpointattributes|setplatformapplicationattributes|setsmsattributes|setsubscriptionattributes|settopicattributes|subscribe|unsubscribe|abortmultipartupload|createbucket|deletebucket|deletebucketpolicy|deletebucketwebsite|deleteobject|deleteobjectversion|getaccelerateconfiguration|getbucketacl|getbucketcors|getbucketlocation|getbucketlogging|getbucketnotification|getbucketpolicy|getbucketrequestpayment|getbuckettagging|getbucketversioning|getbucketwebsite|getlifecycleconfiguration|getobject|getobjectacl|getobjecttorrent|getobjectversion|getobjectversionacl|getobjectversiontorrent|getreplicationconfiguration|listallmybuckets|listbucket|listbucketmultipartuploads|listbucketversions|listmultipartuploadparts|putaccelerateconfiguration|putbucketacl|putbucketcors|putbucketlogging|putbucketnotification|putbucketpolicy|putbucketrequestpayment|putbuckettagging|putbucketversioning|putbucketwebsite|putlifecycleconfiguration|putreplicationconfiguration|putobject|putobjectacl|putobjectversionacl|replicatedelete|replicateobject|restoreobject|acceptreservedinstancesexchangequote|acceptvpcpeeringconnection|allocateaddress|allocatehosts|assignprivateipaddresses|associateaddress|associatedhcpoptions|associatefpgaimage|associateroutetable|attachclassiclinkvpc|attachinternetgateway|attachnetworkinterface|attachvolume|attachvpngateway|authorizesecuritygroupegress|authorizesecuritygroupingress|bundleinstance|cancelbundletask|cancelconversiontask|cancelexporttask|cancelimporttask|cancelreservedinstanceslisting|cancelspotfleetrequests|cancelspotinstancerequests|confirmproductinstance|copyimage|copysnapshot|createcustomergateway|createdhcpoptions|createflowlogs|createimage|createinstanceexporttask|createinternetgateway|createkeypair|createnatgateway|createnetworkacl|createnetworkaclentry|createnetworkinterface|createplacementgroup|createreservedinstanceslisting|createroute|createroutetable|createsecuritygroup|createsnapshot|createspotdatafeedsubscription|createsubnet|createtags|createvolume|createvpc|createvpcendpoint|createvpcpeeringconnection|createvpnconnection|createvpnconnectionroute|createvpngateway|deletecustomergateway|deletedhcpoptions|deleteflowlogs|deleteinternetgateway|deletekeypair|deletenatgateway|deletenetworkacl|deletenetworkaclentry|deletenetworkinterface|deleteplacementgroup|deleteroute|deleteroutetable|deletesecuritygroup|deletesnapshot|deletespotdatafeedsubscription|deletesubnet|deletetags|deletevolume|deletevpc|deletevpcendpoints|deletevpcpeeringconnection|deletevpnconnection|deletevpnconnectionroute|deletevpngateway|deregisterimage|describeaccountattributes|describeaddresses|describeavailabilityzones|describebundletasks|describeclassiclinkinstances|describeconversiontasks|describecustomergateways|describedhcpoptions|describeexporttasks|describeflowlogs|describehosts|describehostreservations|describehostreservationofferings|gethostreservationpurchasepreview|describeidentityidformat|describeidformat|describeimageattribute|describeimages|describeimportimagetasks|describeimportsnapshottasks|describeinstanceattribute|describeinstancestatus|describeinstances|describeinternetgateways|describekeypairs|describemovingaddresses|describenatgateways|describenetworkacls|describenetworkinterfaceattribute|describenetworkinterfaces|describeplacementgroups|describeprefixlists|describeregions|describereservedinstances|describereservedinstanceslistings|describereservedinstancesmodifications|describereservedinstancesofferings|describeroutetables|describesecuritygroups|describesnapshotattribute|describesnapshots|describespotdatafeedsubscription|describespotfleetinstances|describespotfleetrequesthistory|describespotfleetrequests|describespotinstancerequests|describespotpricehistory|describestalesecuritygroups|describesubnets|describetags|describevolumeattribute|describevolumestatus|describevolumes|describevpcattribute|describevpcclassiclink|describevpcendpointservices|describevpcendpoints|describevpcpeeringconnections|describevpcs|describevpnconnections|describevpngateways|detachclassiclinkvpc|detachinternetgateway|detachnetworkinterface|detachvolume|detachvpngateway|disablevgwroutepropagation|disablevpcclassiclink|disablevpcclassiclinkdnssupport|describevpcclassiclinkdnssupport|disassociateaddress|disassociatefpgaimage|disassociateroutetable|enablevgwroutepropagation|enablevolumeio|enablevpcclassiclink|enablevpcclassiclinkdnssupport|getconsoleoutput|getconsolescreenshot|getpassworddata|getreservedinstancesexchangequote|importimage|importinstance|importkeypair|importsnapshot|importvolume|modifyhosts|modifyidentityidformat|modifyidformat|modifyimageattribute|modifyinstanceattribute|modifyinstanceplacement|modifynetworkinterfaceattribute|modifyreservedinstances|modifysnapshotattribute|modifyspotfleetrequest|modifysubnetattribute|modifyvolumeattribute|modifyvpcattribute|modifyvpcendpoint|modifyvpcpeeringconnectionoptions|monitorinstances|moveaddresstovpc|purchasehostreservation|purchasereservedinstancesoffering|purchasescheduledinstances|rebootinstances|registerimage|rejectvpcpeeringconnection|releaseaddress|releasehosts|replacenetworkaclassociation|replacenetworkaclentry|replaceroute|replaceroutetableassociation|reportinstancestatus|requestspotfleet|requestspotinstances|resetimageattribute|resetinstanceattribute|resetnetworkinterfaceattribute|resetsnapshotattribute|restoreaddresstoclassic|revokesecuritygroupegress|revokesecuritygroupingress|runinstances|runscheduledinstances|startinstances|stopinstances|terminateinstances|unassignprivateipaddresses|unmonitorinstances|batchgetitem|batchwriteitem|createtable|deleteitem|deletetable|describelimits|describereservedcapacity|describereservedcapacityofferings|describestream|describetable|getitem|getrecords|getsharditerator|liststreams|listtables|purchasereservedcapacityofferings|putitem|query|scan|updateitem|updatetable|abortvaultlock|addtagstovault|abortmultipartupload|completemultipartupload|completevaultlock|createvault|deletearchive|deletevault|deletevaultaccesspolicy|deletevaultnotifications|describejob|describevault|getdataretrievalpolicy|getjoboutput|getvaultaccesspolicy|getvaultlock|getvaultnotifications|initiatejob|initiatemultipartupload|initiatevaultlock|listjobs|listmultipartuploads|listparts|listtagsforvault|listvaults|removetagsfromvault|setdataretrievalpolicy|setvaultaccesspolicy|setvaultnotifications|uploadarchive|uploadmultipartpart|createcloudfrontoriginaccessidentity|createdistribution|createinvalidation|createstreamingdistribution|deletecloudfrontoriginaccessidentity|deletedistribution|deletestreamingdistribution|getcloudfrontoriginaccessidentity|getcloudfrontoriginaccessidentityconfig|getdistribution|getdistributionconfig|getinvalidation|getstreamingdistribution|getstreamingdistributionconfig|listcloudfrontoriginaccessidentities|listdistributions|listdistributionsbywebaclid|listinvalidations|liststreamingdistributions|updatecloudfrontoriginaccessidentity|updatedistribution|updatestreamingdistribution|assumerole|assumerolewithsaml|assumerolewithwebidentity|decodeauthorizationmessage|getfederationtoken|getsessiontoken|activateuser|addusertogroup|checkalias|createinstance|deactivateuser|deleteinstance|deregisterdirectory|describeavailabledirectories|describeinstances|registerdirectory|removeuserfromgroup|updateinstancealias|addiproutes|addtagstoresource|cancelschemaextension|connectdirectory|createalias|createcomputer|createconditionalforwarder|createdirectory|createmicrosoftad|createsnapshot|createtrust|deleteconditionalforwarder|deletedirectory|deletesnapshot|deletetrust|deregistereventtopic|describeconditionalforwarders|describedirectories|describeeventtopics|describesnapshots|describetrusts|disableradius|disablesso|enableradius|enablesso|getdirectorylimits|getsnapshotlimits|listiproutes|listtagsforresource|listschemaextensions|registereventtopic|removeiproutes|removetagsfromresource|restorefromsnapshot|startschemaextension|updateconditionalforwarder|updateradius|verifytrust|addtagstoresource|authorizecachesecuritygroupingress|copysnapshot|createcachecluster|createcacheparametergroup|createcachesecuritygroup|createcachesubnetgroup|createreplicationgroup|createsnapshot|deletecachecluster|deletecacheparametergroup|deletecachesecuritygroup|deletecachesubnetgroup|deletereplicationgroup|deletesnapshot|describecacheclusters|describecacheengineversions|describecacheparametergroups|describecacheparameters|describecachesecuritygroups|describecachesubnetgroups|describeenginedefaultparameters|describeevents|describereplicationgroups|describereservedcachenodes|describereservedcachenodesofferings|describesnapshots|listallowednodetypemodifications|listtagsforresource|modifycachecluster|modifycacheparametergroup|modifycachesubnetgroup|modifyreplicationgroup|purchasereservedcachenodesoffering|rebootcachecluster|removetagsfromresource|resetcacheparametergroup|revokecachesecuritygroupingress|cancelexporttask|createexporttask|createloggroup|createlogstream|deletedestination|deleteloggroup|deletelogstream|deletemetricfilter|deleteretentionpolicy|deletesubscriptionfilter|describedestinations|describeexporttasks|describeloggroups|describelogstreams|describemetricfilters|describesubscriptionfilters|filterlogevents|getlogevents|putdestination|putdestinationpolicy|putlogevents|putmetricfilter|putretentionpolicy|putsubscriptionfilter|testmetricfilter|createidentitypool|deleteidentitypool|deleteidentities|describeidentity|describeidentitypool|getidentitypoolroles|getopenidtokenfordeveloperidentity|listidentities|listidentitypools|lookupdeveloperidentity|mergedeveloperidentities|setidentitypoolroles|unlinkdeveloperidentity|updateidentitypool|bulkpublish|deletedataset|describedataset|describeidentityusage|describeidentitypoolusage|getbulkpublishdetails|getcognitoevents|getidentitypoolconfiguration|listdatasets|listidentitypoolusage|listrecords|registerdevice|setcognitoevents|setidentitypoolconfiguration|subscribetodataset|updaterecords|unsubscribefromdataset|putevents|getreports|getfinancialreports|checkdomainavailability|deletedomain|deletetagsfordomain|disabledomainautorenew|disabledomaintransferlock|enabledomainautorenew|enabledomaintransferlock|getcontactreachabilitystatus|getdomaindetail|getdomainsuggestions|getoperationdetail|listdomains|listoperations|listtagsfordomain|registerdomain|renewdomain|resendcontactreachabilityemail|retrievedomainauthcode|transferdomain|updatedomaincontact|updatedomaincontactprivacy|updatedomainnameservers|updatetagsfordomain|viewbilling|cancelkeydeletion|createalias|creategrant|createkey|decrypt|deletealias|deleteimportedkeymaterial|describekey|disablekey|disablekeyrotation|enablekey|enablekeyrotation|encrypt|generatedatakey|generatedatakeywithoutplaintext|generaterandom|getkeypolicy|getkeyrotationstatus|getparametersforimport|importkeymaterial|listaliases|listgrants|listkeypolicies|listkeys|listretirablegrants|putkeypolicy|reencryptfrom|reencryptto|reencrypt*|revokegrant|schedulekeydeletion|updatealias|updatekeydescription|modifyaccount|modifybilling|modifypaymentmethods|viewaccount|viewbilling|viewpaymentmethods|viewusage|allocateconnectiononinterconnect|allocateprivatevirtualinterface|allocatepublicvirtualinterface|confirmconnection|confirmprivatevirtualinterface|confirmpublicvirtualinterface|createconnection|createinterconnect|createprivatevirtualinterface|createpublicvirtualinterface|deleteconnection|deleteinterconnect|deletevirtualinterface|describeconnections|describeconnectionsoninterconnect|describeinterconnects|describelocations|describevirtualgateways|describevirtualinterfaces|subscribe|unsubscribe|viewsubscriptions|uploadfiles|viewmarketing|viewreports|viewsupport|acceptportfolioshare|associateprincipalwithportfolio|associateproductwithportfolio|createconstraint|createportfolio|createportfolioshare|createproduct|createprovisioningartifact|deleteconstraint|deleteportfolio|deleteportfolioshare|deleteproduct|deleteprovisioningartifact|describeconstraint|describeportfolio|describeproduct|describeproductasadmin|describeproductview|describeprovisioningartifact|describeprovisioningparameters|describerecord|disassociateprincipalfromportfolio|disassociateproductfromportfolio|listacceptedportfolioshares|listconstraintsforportfolio|listlaunchpaths|listportfolioaccess|listportfolios|listportfoliosforproduct|listprincipalsforportfolio|listprovisioningartifacts|listrecordhistory|provisionproduct|rejectportfolioshare|scanprovisionedproducts|searchproducts|searchproductsasadmin|terminateprovisionedproduct|updateconstraint|updateportfolio|updateproduct|updateprovisionedproduct|updateprovisioningartifact|createprotection|createsubscription|deleteprotection|deletesubscription|describeattack|describeprotection|describesubscription|listattacks|listprotections|describecheckitems|describecheckrefreshstatuses|describechecksummaries|describenotificationpreferences|excludecheckitems|includecheckitems|refreshcheck|updatenotificationpreferences|assigninstance|assignvolume|associateelasticip|attachelasticloadbalancer|clonestack|createapp|createdeployment|createinstance|createlayer|createstack|createuserprofile|deleteapp|deleteinstance|deletelayer|deletestack|deleteuserprofile|deregisterecscluster|deregisterelasticip|deregisterinstance|deregistervolume|describeapps|describecommands|describedeployments|describeecsclusters|describeelasticips|describeelasticloadbalancers|describeinstances|describelayers|describeloadbasedautoscaling|describepermissions|describeraidarrays|describerdsdbinstances|describeserviceerrors|describestackprovisioningparameters|describestacksummary|describestacks|describetimebasedautoscaling|describeuserprofiles|describevolumes|detachelasticloadbalancer|disassociateelasticip|gethostnamesuggestion|grantaccess|rebootinstance|registerecscluster|registerelasticip|registerinstance|registerrdsdbinstance|registervolume|setloadbasedautoscaling|setpermission|settimebasedautoscaling|startinstance|startstack|stopinstance|stopstack|unassigninstance|unassignvolume|updateapp|updateelasticip|updateinstance|updatelayer|updatemyuserprofile|updaterdsdbinstance|updatestack|updateuserprofile|updatevolume|associatenode|createbackup|createserver|deletebackup|deleteserver|describeaccountattributes|describebackups|describeevents|describenodeassociationstatus|describeservers|disassociatenode|restoreserver|startmaintenance|updateserver|updateserverengineattributes|addmemberstogroup|creategroup|createmaildomain|createmailuser|createorganization|deleteorganization|deletemaildomain|deletemobiledevice|describedirectories|describekmskeys|describeorganizations|describemaildomains|describemailgroups|describemailusers|disablemailgroups|disablemailusers|enablemaildomain|enablemailusers|enablemailgroups|getmaildomaindetails|getmailgroupdetails|getmailuserdetails|getmobiledevicedetails|getmobiledevicesforuser|getmobilepolicydetails|listmembersinmailgroup|removemembersfromgroup|resetuserpassword|searchmembers|setadmin|setdefaultmaildomain|setmailgroupdetails|setmailuserdetails|setmobilepolicydetails|wipemobiledevice|createcluster|createservice|deletecluster|deleteservice|deregistercontainerinstance|deregistertaskdefinition|describeclusters|describecontainerinstances|describeservices|describetaskdefinition|describetasks|discoverpollendpoint|listclusters|listcontainerinstances|listservices|listtaskdefinitionfamilies|listtaskdefinitions|listtasks|poll|registercontainerinstance|registertaskdefinition|runtask|starttask|stoptask|starttelemetrysession|submitcontainerstatechange|submittaskstatechange|updatecontaineragent|updateservice|allocatestaticip|attachstaticip|closeinstancepublicports|createdomain|createdomainentry|createinstancesnapshot|createinstances|createinstancesfromsnapshot|createkeypair|deletedomain|deletedomainentry|deleteinstance|deleteinstancesnapshot|deletekeypair|detachstaticip|downloaddefaultkeypair|getactivenames|getblueprints|getbundles|getdomain|getdomains|getinstance|getinstanceaccessdetails|getinstancemetricdata|getinstanceportstates|getinstancesnapshot|getinstancesnapshots|getinstancestate|getinstances|getkeypair|getkeypairs|getoperation|getoperations|getoperationsforresource|getregions|getstaticip|getstaticips|importkeypair|isvpcpeered|openinstancepublicports|peervpc|rebootinstance|releasestaticip|startinstance|stopinstance|unpeervpc|updatedomainentry|addtags|createbatchprediction|createdatasourcefromrds|createdatasourcefromredshift|createdatasourcefroms3|createevaluation|createmlmodel|createrealtimeendpoint|deletebatchprediction|deletedatasource|deleteevaluation|deletemlmodel|deleterealtimeendpoint|deletetags|describebatchpredictions|describedatasources|describeevaluations|describemlmodels|describetags|getbatchprediction|getdatasource|getevaluation|getmlmodel|predict|updatebatchprediction|updatedatasource|updateevaluation|updatemlmodel|comparefaces|createcollection|deletecollection|deletefaces|detectfaces|detectlabels|indexfaces|listcollections|listfaces|searchfaces|searchfacesbyimage|createtags|createworkspaces|deletetags|describetags|describeworkspacebundles|describeworkspacesconnectionstatus|describeworkspacedirectories|describeworkspaces|modifyworkspaceproperties|startworkspaces|stopworkspaces|rebootworkspaces|rebuildworkspaces|terminateworkspaces|authenticatepackager|activatepipeline|addtags|createpipeline|deactivatepipeline|deletepipeline|describeobjects|describepipelines|evaluateexpression|getaccountlimits|getpipelinedefinition|listpipelines|pollfortask|putaccountlimits|putpipelinedefinition|queryobjects|removetags|reporttaskprogress|reporttaskrunnerheartbeat|setstatus|settaskstatus|validatepipelinedefinition|batchgetbuilds|batchgetprojects|createproject|deleteproject|listbuilds|listbuildsforproject|listconnectedoauthaccounts|listprojects|listrepositories|persistoauthtoken|startbuild|stopbuild|updateproject|addtags|createelasticsearchdomain|deleteelasticsearchdomain|describeelasticsearchdomain|describeelasticsearchdomains|describeelasticsearchdomainconfig|listdomainnames|listtags|removetags|updateelasticsearchdomainconfig|createbytematchset|createipset|createrule|createsqlinjectionmatchset|createwebacl|deletebytematchset|deleteipset|deleterule|deletesqlinjectionmatchset|deletewebacl|getbytematchset|getchangetoken|getchangetokenstatus|getipset|getrule|getsampledrequests|getsqlinjectionmatchset|getwebacl|listbytematchsets|listipsets|listrules|listsqlinjectionmatchsets|listwebacls|updatebytematchset|updateipset|updaterule|updatesqlinjectionmatchset|updatewebacl|addattributestofindings|createassessmenttarget|createassessmenttemplate|createresourcegroup|deleteassessmentrun|deleteassessmenttarget|deleteassessmenttemplate|describeassessmentruns|describeassessmenttargets|describeassessmenttemplates|describecrossaccountaccessrole|describefindings|describeresourcegroups|describerulespackages|gettelemetrymetadata|listassessmentrunagents|listassessmentruns|listassessmenttargets|listassessmenttemplates|listeventsubscriptions|listfindings|listrulespackages|listtagsforresource|previewagents|registercrossaccountaccessrole|removeattributesfromfindings|settagsforresource|startassessmentrun|stopassessmentrun|subscribetoevent|unsubscribefromevent|updateassessmenttarget|addapplicationinput|addapplicationoutput|addapplicationreferencedatasource|createapplication|deleteapplication|deleteapplicationoutput|deleteapplicationreferencedatasource|describeapplication|discoverinputschema|getapplicationstate|listapplications|startapplication|stopapplication|updateapplication|createdeliverystream|deletedeliverystream|describedeliverystream|listdeliverystreams|putrecord|putrecordbatch|updatedestination|acceptcertificatetransfer|attachprincipalpolicy|attachthingprincipal|cancelcertificatetransfer|connect|createcertificatefromcsr|createkeysandcertificate|createpolicy|createpolicyversion|creatething|createtopicrule|deletecertificate|deletepolicy|deletepolicyversion|deletething|deletethingshadow|deletetopicrule|describecertificate|describeendpoint|describething|detachprincipalpolicy|detachthingprincipal|getloggingoptions|getpolicy|getpolicyversion|getthingshadow|gettopicrule|listcertificates|listpolicies|listpolicyversions|listprincipalpolicies|listprincipalthings|listthingprincipals|listthings|listtopicrules|publish|receive|rejectcertificatetransfer|replacetopicrule|setdefaultpolicyversion|setloggingoptions|subscribe|transfercertificate|updatecertificate|updatething|updatethingshadow|createalias|createbuild|createfleet|creategamesession|createplayersession|createplayersessions|deletealias|deletebuild|deletefleet|deletescalingpolicy|describealias|describebuild|describeec2instancelimits|describefleetattributes|describefleetcapacity|describefleetevents|describefleetportsettings|describefleetutilization|describegamesessions|describegamesessiondetails|describeinstances|describeplayersessions|describeruntimeconfiguration|describescalingpolicies|getgamesessionlogurl|getinstanceaccess|listaliases|listbuilds|listfleets|putscalingpolicy|searchgamesessions|requestuploadcredentials|resolvealias|updatealias|updatebuild|updatefleetattributes|updatefleetcapacity|updatefleetportsettings|updategamesession|updateruntimeconfiguration|approveassignment|approverejectedassignment|assignqualification|blockworker|changehittypeofhit|createhit|createqualificationtype|disablehit|disposehit|disposequalificationtype|extendhit|forceexpirehit|getaccountbalance|getassignment|getassignmentsforhit|getblockedworkers|getbonuspayments|getfileuploadurl|gethit|gethitsforqualificationtype|getqualificationrequests|getqualificationscore|getqualificationtype|getqualificationsforqualificationtype|getrequesterstatistic|getrequesterworkerstatistic|getreviewresultsforhit|getreviewablehits|grantbonus|grantqualification|notifyworkers|registerhittype|rejectassignment|rejectqualificationrequest|revokequalification|searchhits|searchqualificationtypes|sendtesteventnotification|sethitasreviewing|sethittypenotification|unblockworker|updatequalificationscore|updatequalificationtype|batchgettraces|getservicegraph|gettracegraph|gettracesummaries|puttelemetryrecords|puttracesegments)(?=")'
+        'name': 'entity.name.tag'
+      }
+      {
+        'match': ':'
+        'name': 'entity.other.attribute-name'
+      }
+      {
+        'match': '[a-zA-Z0-9\\*]*'
+        'name': 'entity.other.attribute-name'
+      }
+      { 'include': '#error' }
+    ]
+  'resource_block':
+    'begin': '(?i:"resource"|"notresource")'
+    'beginCaptures':
+      '0':
+        'name': 'punctuation.definition.string.begin.json'
+    'end': '(,)|(?=\\})'
+    'endCaptures':
+      '0':
+        'name': 'punctuation.definition.string.end.json'
+    'name': 'string.quoted.double.json'
+    'patterns': [
+      {
+        'begin': ':'
+        'beginCaptures':
+          '0':
+            'name': 'punctuation.separator.dictionary.key-value.json'
+        'end': '(?=,)|(?=\\})'
+        'endCaptures':
+          '0':
+            'name': 'invalid.illegal.traili ng-dictionary-separator.json'
+        'name': 'string.quoted.double.json'
+        'patterns': [
+          { 'include': '#arn' }
+          { 'include': '#resource_array' }
+          {
+            'match': '[^\\s\\n]'
+            'name': 'invalid.illegal.unrecognized-string-escape.json'
+          }
+        ]
+      }
+    ]
+  'resource_array':
+    'begin': '\\['
+    'beginCaptures':
+      '0':
+        'name': 'punctuation.definition.array.begin.json'
+    'end': '(,?)[\\s\\n]*(\\])'
+    'endCaptures':
+      '1':
+        'name': 'invalid.illegal.trailing-array-separator.json'
+      '2':
+        'name': 'punctuation.definition.array.end.json'
+    'name': 'meta.structure.array.json'
+    'patterns': [
+      { 'include': '#arn' }
+      {
+        'match': ','
+        'name': 'punctuation.separator.array.json'
+      }
+      { 'include': '#error' }
+    ]
+  'condition_block':
+    'begin': '(?i:"condition")'
+    'beginCaptures':
+      '0':
+        'name': 'punctuation.definition.string.begin.json'
+    'end': '(,)|(?=\\})'
+    'endCaptures':
+      '0':
+        'name': 'punctuation.definition.string.end.json'
+    'name': 'string.quoted.double.json'
+    'patterns': [
+      {
+        'begin': ':'
+        'beginCaptures':
+          '0':
+            'name': 'punctuation.separator.dictionary.key-value.json'
+        'end': '(?=,)|(?=\\})'
+        'endCaptures':
+          '0':
+            'name': 'invalid.illegal.traili ng-dictionary-separator.json'
+        'name': 'string.quoted.double.json'
+        'patterns': [
+          {
+            'include': '#condition_map'
+          }
+          {
+            'match': '[^\\s\\n]'
+            'name': 'invalid.illegal.unrecognized-string-escape.json'
+          }
+        ]
+      }
+    ]
+  'condition_map':
+    'begin': '\\{'
+    'beginCaptures':
+      '0':
+        'name': 'punctuation.definition.dictionary.begin.json'
+    'end': '\\}'
+    'endCaptures':
+      '0':
+        'name': 'punctuation.definition.dictionary.end.json'
+    'name': 'meta.structure.dictionary.json'
+    'patterns': [
+      { 'include': '#condition_type_entry' }
+      {
+        'match': '[^\\s\\n]'
+        'name': 'invalid.illegal.unrecognized-string-escape.json'
+      }
+    ]
+  'condition_type_entry':
+    'begin': '(?i:"[a-zA-Z0-9]*")'
+    'beginCaptures':
+      '0':
+        'name': 'punctuation.definition.string.begin.json'
+    'end': '(,)|(?=\\})'
+    'endCaptures':
+      '0':
+        'name': 'punctuation.definition.string.end.json'
+    'name': 'string.quoted.double.json'
+    'patterns': [
+      {
+        'begin': ':'
+        'beginCaptures':
+          '0':
+            'name': 'punctuation.separator.dictionary.key-value.json'
+        'end': '(?=,)|(?=\\})'
+        'endCaptures':
+          '0':
+            'name': 'invalid.illegal.trailing-dictionary-separator.json'
+        'name': 'string.quoted.double.json'
+        'patterns': [
+          {
+            'include': '#condition_key_map'
+          }
+        ]
+      }
+    ]
+  'condition_key_map':
+    'begin': '\\{'
+    'beginCaptures':
+      '0':
+        'name': 'punctuation.definition.dictionary.begin.json'
+    'end': '\\}'
+    'endCaptures':
+      '0':
+        'name': 'punctuation.definition.dictionary.end.json'
+    'name': 'meta.structure.dictionary.json'
+    'patterns': [
+      {
+        'include': '#condition_key_entry'
+      }
+      {
+        'match': '[^\\s\\n]'
+        'name': 'invalid.illegal.unrecognized-string-escape.json'
+      }
+    ]
+  'condition_key_entry':
+    'begin': '(?i:"[a-zA-Z0-9:]*")'
+    'beginCaptures':
+      '0':
+        'name': 'punctuation.definition.string.begin.json'
+    'end': '(,)|(?=\\})'
+    'endCaptures':
+      '0':
+        'name': 'punctuation.definition.string.end.json'
+    
+    'patterns': [
+      {
+        'begin': ':'
+        'beginCaptures':
+          '0':
+            'name': 'punctuation.separator.dictionary.key-value.json'
+        'end': '(?=,)|(?=\\})'
+        'endCaptures':
+          '0':
+            'name': 'invalid.illegal.trailing-dictionary-separator.json'
+        'name': 'string.quoted.double.json'
+        'patterns': [
+          {
+            'include': '#condition'
+          }
+          {
+            'include': '#condition_array'
+          }
+        ]
+      }
+    ]
+  'condition_array':
+    'begin': '\\['
+    'beginCaptures':
+      '0':
+        'name': 'punctuation.definition.array.begin.json'
+    'end': '(,?)[\\s\\n]*(\\])'
+    'endCaptures':
+      '1':
+        'name': 'invalid.illegal.trailing-array-separator.json'
+      '2':
+        'name': 'punctuation.definition.array.end.json'
+    'name': 'meta.structure.array.json'
+    'patterns': [
+      {
+        'include': '#condition'
+      }
+      {
+        'match': ','
+        'name': 'punctuation.separator.array.json'
+      }
+      { 'include': '#error' }
+    ]
+  'condition':
+    'match': '"[^"]*"'
+    'name': 'entity.other.attribute-name'
+  'arn':
+    'match': '"[^"]*"'
+    'name': 'entity.other.attribute-name'
+  'error':
+    'match': '[^\\s\\]]'
+    'name': 'invalid.illegal.expected-array-separator.json'
