@@ -2,7 +2,7 @@
 
 Action aware syntax highlighting and snippets for AWS IAM Policies in the Atom IDE.
 
-<img alt="Demo" src="policy.gif" width="400">
+<img alt="Demo" src="https://raw.githubusercontent.com/witoff/atom-iam-syntax/master/policy.gif" width="400">
 
 **Features:**
 * **Strict Syntax Highlighting** - discover errors early with the [IAM EBNF](http://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_grammar.html#po)
