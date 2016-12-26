@@ -1,0 +1,26 @@
+{
+  "Id" : "StatementId",
+  "Version" : "2012-10-17",
+  "Statement" : [
+    {
+      "Effect": "Allow",
+      "Action": [
+        "ec2:RunInstances",
+        "xray:BatchGetTraces",
+        "xray:GetServiceGraph",
+        "xray:GetTraceGraph",
+        "xray:GetTraceSummaries",
+        "xray:PutTelemetryRecords",
+        "xray:PutTraceSegments",
+      ],
+      "Resource": "*",
+      "Condition": {
+        "IpAddress": {
+          "aws:SourceIp": [
+            "1.2.3.4/25"
+          ]
+        }
+      }
+    }
+  ]
+}

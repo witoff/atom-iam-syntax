@@ -2,7 +2,7 @@
 
 Action aware syntax highlighting for AWS IAM Policies in the Atom IDE.
 
-> SCREENGIF
+<img src="policy.gif" width="400">
 
 ### Development Notes
 
@@ -35,3 +35,4 @@ Resources:
 * [IAM Policy Generator](https://awsiamconsole.s3.amazonaws.com/iam/assets/js/bundles/policies.js)
 * [IAM Grammar](http://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_grammar.html#policies-grammar-bnf)
 * [TextMate Grammar Docs](http://manual.macromates.com/en/language_grammars)
+* [Writing a Syntax Highlighting Package](https://www.sitepoint.com/how-to-write-a-syntax-highlighting-package-for-atom/)
