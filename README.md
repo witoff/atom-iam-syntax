@@ -36,6 +36,12 @@ bundle exec generate-grammars.rb
 * ⌘+⇧+p -> Window: Reload -- needed to reprocess your changes
 * `apm link $SYNTAX_FOLDER` -- install a syntax repo into atom
 
+**Publishing Atom Package**
+
+```shell
+apm publish patch|minor|major
+```
+
 ## Resources
 
 Resources:
