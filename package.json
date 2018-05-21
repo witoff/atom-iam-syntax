@@ -1,7 +1,7 @@
 {
   "name": "iam-syntax",
   "author": "Rob Witoff <twitter.com/rwitoff>",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "Syntax Highlighting for IAM Policies",
   "repository": "git@github.com:witoff/atom-iam-syntax.git",
   "keywords": [

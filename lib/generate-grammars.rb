@@ -15,12 +15,12 @@ def parse_service_map
   chars = policies[index..-1].split ''
   # Pull the following object
   obj = []
-  lb=rb=0
+  lb = rb = 0
   chars.each do |c|
-    lb += 1 if c== '{'
-    rb += 1 if c== '}'
+    lb += 1 if c == '{'
+    rb += 1 if c == '}'
     obj.push c
-    break if lb>0 and lb==rb
+    break if (lb > 0) && (lb == rb)
   end
   # Turn Javascript Object into JSON (FML -- can't aws just give us the JSON?)
   service_map = obj.join.gsub(/\s/, '')
@@ -34,10 +34,10 @@ def parse_service_map
   JSON.load(service_map)
 end
 
-def generate_grammar service_map
+def generate_grammar(service_map)
   # extract fields
   cson = File.read './policy.cson'
-  service_count = service_map['serviceMap'].keys.length
+  # service_count = service_map['serviceMap'].keys.length
 
   # Get Services
   prefixes = service_map['serviceMap'].values.collect { |v| v['StringPrefix'] }
@@ -46,7 +46,7 @@ def generate_grammar service_map
   puts service_list
 
   # Get Actions
-  actions = service_map['serviceMap'].values.collect {|v|v['Actions']}.flatten
+  actions = service_map['serviceMap'].values.collect { |v| v['Actions'] }.flatten
   action_list = actions.join('|').downcase
   cson.gsub! '{{ACTION_LIST}}', action_list
   puts action_list
@@ -54,8 +54,7 @@ def generate_grammar service_map
   File.write '../grammars/generated-policy.cson', cson
 end
 
-def get_service_snippet service, actions
-
+def get_service_snippet(service, actions)
   snippet = []
   snippet.push "  'All #{service} Actions':"
   snippet.push "    'prefix': '#{service}:'"
@@ -67,13 +66,18 @@ def get_service_snippet service, actions
   snippet.join "\n"
 end
 
-def generate_snippets service_map
-
+def generate_snippets(service_map)
   cson = File.read './snippets.cson'
 
+  actions_for_service = {}
   service_map['serviceMap'].keys.each do |k|
     service = service_map['serviceMap'][k]['StringPrefix']
     actions = service_map['serviceMap'][k]['Actions']
+    actions_for_service[service] = [] if actions_for_service[service].nil?
+    actions_for_service[service].concat actions
+  end
+
+  actions_for_service.each do |service, actions|
     snippet = get_service_snippet service, actions
     cson += snippet
   end
