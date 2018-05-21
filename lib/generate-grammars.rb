@@ -71,9 +71,15 @@ def generate_snippets service_map
 
   cson = File.read './snippets.cson'
 
+  actions_for_service = {}
   service_map['serviceMap'].keys.each do |k|
     service = service_map['serviceMap'][k]['StringPrefix']
     actions = service_map['serviceMap'][k]['Actions']
+    actions_for_service[service] = [] if actions_for_service[service].nil?
+    actions_for_service[service].concat actions
+  end
+
+  actions_for_service.each do |service, actions|
     snippet = get_service_snippet service, actions
     cson += snippet
   end
