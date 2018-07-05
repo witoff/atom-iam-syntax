@@ -831,17 +831,6 @@
       "codecommit:UpdateRepositoryName",
     """
 
-  'All ec2 Actions':
-    'prefix': 'ec2:'
-    'body': """
-      "ec2:CancelSpotFleetRequests",
-      "ec2:DescribeSpotFleetInstances",
-      "ec2:DescribeSpotFleetRequests",
-      "ec2:DescribeSpotFleetRequestHistory",
-      "ec2:ModifySpotFleetRequest",
-      "ec2:RequestSpotFleet",
-    """
-
   'All codedeploy Actions':
     'prefix': 'codedeploy:'
     'body': """
@@ -2149,6 +2138,12 @@
       "ec2:UnmonitorInstances",
       "ec2:UpdateSecurityGroupRuleDescriptionsEgress",
       "ec2:UpdateSecurityGroupRuleDescriptionsIngress",
+      "ec2:CancelSpotFleetRequests",
+      "ec2:DescribeSpotFleetInstances",
+      "ec2:DescribeSpotFleetRequests",
+      "ec2:DescribeSpotFleetRequestHistory",
+      "ec2:ModifySpotFleetRequest",
+      "ec2:RequestSpotFleet",
     """
 
   'All dynamodb Actions':
@@ -2659,11 +2654,6 @@
       "aws-marketplace:Subscribe",
       "aws-marketplace:Unsubscribe",
       "aws-marketplace:ViewSubscriptions",
-    """
-
-  'All aws-marketplace Actions':
-    'prefix': 'aws-marketplace:'
-    'body': """
       "aws-marketplace:MeterUsage",
       "aws-marketplace:BatchMeterUsage",
       "aws-marketplace:ResolveCustomer",
@@ -3579,4 +3569,3 @@
       "pricing:GetAttributeValues",
       "pricing:GetProducts",
     """
-
